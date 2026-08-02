@@ -5,6 +5,6 @@ include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = DJMAXSpoof
 DJMAXSpoof_FILES = Tweak.x
-DJMAXSpoof_CFLAGS = -fobjc-arc
+DJMAXSpoof_CFLAGS = -fobjc-arc -fno-modules -Wno-deprecated-module-dot-map -Wno-error
 
 include $(THEOS_MAKE_PATH)/tweak.mk
