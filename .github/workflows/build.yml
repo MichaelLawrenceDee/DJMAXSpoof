@@ -1,34 +1,37 @@
-name: Build 32-Bit Tweak
+name: Build WirewayAudioFix
 
 on:
   push:
-    branches: [ main, master ]
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-13
+
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Theos with Legacy SDKs
-        uses: Randomblock1/theos-action@v1
+      - name: Setup Theos & Legacy SDKs
+        uses: theos/action@v1
         with:
           theos-sdks: 'https://github.com/theos/sdks'
+          theos-sdks-ref: 'master'
 
-      - name: Fix SDK Module Maps
+      - name: Fix SDK module maps for modern Clang
         run: |
-          find $THEOS/sdks -name "module.map" -exec bash -c 'mv "$1" "${1%module.map}module.modulemap"' _ {} \; || true
+          find $THEOS/sdks -name "module.map" -exec bash -c 'mv "$1" "${1%.map}.modulemap"' _ {} \;
 
-      - name: Build Tweak Package
+      - name: Build Package
         run: |
-          make package FINALPACKAGE=1
+          make clean package FINALPACKAGE=1
 
-      - name: Upload Compiled .dylib / .deb Artifact
+      - name: Upload DEB Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: DJMAXSpoof-Build
+          name: WirewayAudioFix-DEB
           path: |
-            .theos/obj/debug/DJMAXSpoof.dylib
-            packages/*.deb
+            **/packages/*.deb
+            **/*.deb
