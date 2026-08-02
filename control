@@ -1,0 +1,9 @@
+Package: com.yourname.djmaxspoof
+Name: DJMAXSpoof
+Depends: mobilesubstrate
+Version: 1.0.0
+Architecture: iphoneos-arm
+Description: 32-bit UDID spoof for DJMAX Ray
+Maintainer: YourName
+Author: YourName
+Section: Tweaks
