@@ -1,4 +1,4 @@
-name: Build WirewayAudioFix
+name: Build All Tweaks
 
 on:
   push:
@@ -29,14 +29,22 @@ jobs:
           git clone --depth=1 https://github.com/theos/sdks.git $HOME/theos/sdks
           find $HOME/theos/sdks -name "module.map" -exec bash -c 'mv "$1" "${1%.map}.modulemap"' _ {} \;
 
-      - name: Build Package
+      - name: Build DJMAXSpoof
         run: |
-          make clean package FINALPACKAGE=1
+          if [ -d "DJMAXSpoof" ]; then
+            cd DJMAXSpoof && make clean package FINALPACKAGE=1
+          fi
 
-      - name: Upload DEB Artifact
+      - name: Build WirewayAudioFix
+        run: |
+          if [ -d "WirewayAudioFix" ]; then
+            cd WirewayAudioFix && make clean package FINALPACKAGE=1
+          fi
+
+      - name: Upload DEB Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: WirewayAudioFix-DEB
+          name: Tweaks-DEB-Bundle
           path: |
             **/packages/*.deb
             **/*.deb
