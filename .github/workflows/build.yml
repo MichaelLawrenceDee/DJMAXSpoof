@@ -17,6 +17,10 @@ jobs:
         with:
           theos-sdks: 'https://github.com/theos/sdks'
 
+      - name: Fix SDK Module Maps
+        run: |
+          find $THEOS/sdks -name "module.map" -exec bash -c 'mv "$1" "${1%module.map}module.modulemap"' _ {} \; || true
+
       - name: Build Tweak Package
         run: |
           make package FINALPACKAGE=1
