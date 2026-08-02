@@ -14,15 +14,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Theos & Legacy SDKs
-        uses: theos/action@v1
-        with:
-          theos-sdks: 'https://github.com/theos/sdks'
-          theos-sdks-ref: 'master'
-
-      - name: Fix SDK module maps for modern Clang
+      - name: Install Dependencies
         run: |
-          find $THEOS/sdks -name "module.map" -exec bash -c 'mv "$1" "${1%.map}.modulemap"' _ {} \;
+          brew install lz4 xz
+
+      - name: Setup Theos
+        run: |
+          git clone --recursive https://github.com/theos/theos.git $HOME/theos
+          echo "THEOS=$HOME/theos" >> $GITHUB_ENV
+
+      - name: Setup Legacy SDKs
+        run: |
+          git clone --depth=1 https://github.com/theos/sdks.git $HOME/theos/sdks
+          # Fix module maps for modern Apple Clang
+          find $HOME/theos/sdks -name "module.map" -exec bash -c 'mv "$1" "${1%.map}.modulemap"' _ {} \;
 
       - name: Build Package
         run: |
