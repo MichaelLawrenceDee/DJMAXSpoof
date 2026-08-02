@@ -1,0 +1,9 @@
+Package: com.yourname.wirewayaudiofix
+Name: WirewayAudioFix
+Depends: mobilesubstrate
+Version: 0.0.1
+Architecture: iphoneos-arm
+Description: Intercepts OpenAL and AudioToolbox calls to prevent audio deadlock in Wireway on iOS 10.
+Maintainer: YourName
+Author: YourName
+Section: Tweaks
