@@ -1,10 +1,12 @@
-TARGET = iphone:clang:13.7:7.0
+TARGET := iphone:clang:13.7:6.0
 ARCHS = armv7
 
 include $(THEOS)/makefiles/common.mk
 
-TWEAK_NAME = DJMAXSpoof
-DJMAXSpoof_FILES = Tweak.x
-DJMAXSpoof_CFLAGS = -fobjc-arc -fno-modules -Wno-deprecated-module-dot-map -Wno-error
+TWEAK_NAME = WirewayAudioFix
+
+WirewayAudioFix_FILES = WirewayAudioFix.x
+WirewayAudioFix_FRAMEWORKS = AudioToolbox
+WirewayAudioFix_CFLAGS = -fobjc-arc -fno-modules -Wno-deprecated-module-dot-map
 
 include $(THEOS_MAKE_PATH)/tweak.mk
