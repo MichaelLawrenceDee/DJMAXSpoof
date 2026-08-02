@@ -25,8 +25,11 @@ jobs:
 
       - name: Setup Legacy SDKs
         run: |
+          # Remove empty placeholder folder created by theos setup
+          rm -rf $HOME/theos/sdks
+          # Clone legacy SDKs directly
           git clone --depth=1 https://github.com/theos/sdks.git $HOME/theos/sdks
-          # Fix module maps for modern Apple Clang
+          # Fix module maps for modern Clang
           find $HOME/theos/sdks -name "module.map" -exec bash -c 'mv "$1" "${1%.map}.modulemap"' _ {} \;
 
       - name: Build Package
