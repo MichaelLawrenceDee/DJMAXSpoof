@@ -5,9 +5,8 @@ include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = WirewayAudioFix
 
-# MUST match your file name in the root (e.g. WirewayAudioFix.x or Tweak.x)
 WirewayAudioFix_FILES = WirewayAudioFix.x
 WirewayAudioFix_FRAMEWORKS = AudioToolbox
-WirewayAudioFix_CFLAGS = -fobjc-arc -fno-modules -Wno-deprecated-module-dot-map
+WirewayAudioFix_CFLAGS = -fobjc-arc -fno-modules
 
 include $(THEOS_MAKE_PATH)/tweak.mk
